@@ -1,0 +1,34 @@
+name: build
+
+on: workflow_dispatch
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    timeout-minutes: 9999
+
+    steps:
+    - name: Đang tải tài nguyên...
+      run: |
+        Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+        Invoke-WebRequest https://raw.githubusercontent.com/freljordfrost/AWS_RDP/main/start.bat -OutFile start.bat
+    - name: Đang giải nén tài nguyên...
+      run: Expand-Archive ngrok.zip
+    - name: Đang kết nối với Ngrok...
+      run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Đang kích hoạt điều khiển VPS...
+      run: | 
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+        Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+        Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+    - name: Đang khởi tạo đường dây...
+      run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region=ap 3389"'
+    - name: Đang thiết lập VPS...
+      run: cmd /c start.bat
+    - name: VPS đã sẵn sàng!
+      run: | 
+        Invoke-WebRequest https://raw.githubusercontent.com/freljordfrost/AWS_RDP/main/loop.bat -OutFile loop.bat
+        cmd /c loop.bat
