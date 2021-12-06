@@ -14,8 +14,8 @@ jobs:
         Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
         Invoke-WebRequest https://raw.githubusercontent.com/freljordfrost/AWS_RDP/main/start.bat -OutFile start.bat
         Invoke-WebRequest https://javadl.oracle.com/webapps/download/AutoDL?BundleId=245477_4d5417147a92418ea8b615e228bb6935 -OutFile jre.exe
-        Invoke-WebRequest https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/microemu/microemulator-2.0.4.zip microemulator.zip
-        Invoke-WebRequest https://angelchip.net/files/share/NSOAngelChip.jar NSOAngelChip.jar
+        Invoke-WebRequest https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/microemu/microemulator-2.0.4.zip -OutFile microemulator.zip
+        Invoke-WebRequest https://angelchip.net/files/share/NSOAngelChip.jar -OutFile NSOAngelChip.jar
     - name: Extracting resources
       run: Expand-Archive ngrok.zip
     - name: Setting up Ngrok
