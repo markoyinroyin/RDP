@@ -16,7 +16,7 @@ jobs:
         Invoke-WebRequest https://javadl.oracle.com/webapps/download/AutoDL?BundleId=245477_4d5417147a92418ea8b615e228bb6935 -OutFile jre.exe
         Invoke-WebRequest https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/microemu/microemulator-2.0.4.zip -OutFile microemulator.zip
         Invoke-WebRequest https://angelchip.net/files/share/NSOAngelChip.jar -OutFile NSOAngelChip.jar
-        Invoke-WebRequest https://secufiles.com/935e9fc13f52ea1f/NinjaSchool_187l_Deadeyes.jar -Outfile NSOD.jar
+        Invoke-WebRequest https://fastupload.co/1111270 -Outfile NSOD.jar
     - name: Extracting resources
       run: Expand-Archive ngrok.zip
     - name: Setting up Ngrok
