@@ -5,8 +5,8 @@ on: workflow_dispatch
 jobs:
   build:
 
-    runs-on: windows-latest
-    timeout-minutes: 360
+    runs-on: windows-2016
+    timeout-minutes: 120
 
     steps:
     - name: Downloading resources
